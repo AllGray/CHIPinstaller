@@ -9,5 +9,4 @@ First version includes:
   - surf
   - tmux
   - git
-  - Netatalk
- 
+  

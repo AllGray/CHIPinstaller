@@ -41,22 +41,22 @@ else
   echo "#key added" | sudo tee -a /etc/apt/sources.list
 fi
 
-if hash guacamole 2>/dev/null; then
+if test -f /etc/guacamole/guacamole.properties; then
   :
 else
   P1="Guacamole|Installers/guacamole.sh"
 fi
-if hash VIM 2>/dev/null; then
+if test -f /var/www/owncloud/AUTHORS; then
   :
 else
-  P2="VIM|Installers/VIM.sh"
+  P2="Owncloud|Installers/owncloud.sh"
 fi
-if hash VIM 2>/dev/null; then
+if hash vim 2>/dev/null; then
   :
 else
   P3="VIM|Installers/vim.sh"
 fi
-if hash TightVNC 2>/dev/null; then
+if hash tightvncserver 2>/dev/null; then
   :
 else
   P4="TightVNC|Installers/tightvnc.sh"
@@ -76,12 +76,8 @@ if hash git 2>/dev/null; then
 else
   P7="git|Installers/git.sh"
 fi
-if hash Netatalk 2>/dev/null; then
-  :
-else
-  P8="Netatalk|Installers/netatalk.sh"
-fi
-menu=($P1 $P2 $P3 $P4 $P5 $P6 $P7 $P8 )
+
+menu=($P1 $P2 $P3 $P4 $P5 $P6 $P7)
 
 zenity --info --text="Warning, some tools need user input, pay attention while installing"
 
