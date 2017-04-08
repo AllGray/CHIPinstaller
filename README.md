@@ -10,9 +10,6 @@ https://sourceforge.net/projects/yad-dialog/
 Zenity is used for of the launchers interface: 
 https://wiki.gnome.org/Projects/Zenity 
 
-Pocket Home (by @o-marshmallow) is highly recommended for a great experience: 
-https://github.com/o-marshmallow/PocketCHIP-pocket-home 
-
 CHIPInstaller has been created by Damian Vila (@damianvila), Iker García (@IkerGarcia) and Mathias Thur (@AllGray). 
 
 **Motivation** 
@@ -28,5 +25,5 @@ As this is being updated regularly, don't forget to rebase your fork before crea
 
 **License** 
 
-This project is licensed under the MIT license (read License file). Of course, this license affects only to the parts we have created, all the other tools (YAD, Zenity, Pocket Home and so on) hold their own license. Regarding to us, share, collaborate and enjoy!
+This project is licensed under the MIT license (read License file). Of course, this license affects only to the parts we have created, all the other tools (YAD, Zenity, and so on) hold their own license. Regarding to us, share, collaborate and enjoy!
 
