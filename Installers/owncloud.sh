@@ -91,6 +91,28 @@ rm -r Release.key owncloud-chip-installer.sh local_ip.txt
 # Restart Apache
 systemctl restart apache2
 
+# Create readme.txt in /user/chip/
+cat >/user/chip/owncloud_README.txt <<EOL
+"+---------------------------------------------------------------------+"
+"|                           Congratulation!                           |"
+"|                        Your install is done!                        |"
+"|                      Your HOSTNAME is $hostname_new                      |"
+"|            If you don't have Bonjour/Netatalk installed,            |"
+"|             Head over  to http://$local_ip/owncloud             |"
+"|                                                                     |"
+"|              if you DO have Bonjour/Netatalk installed              |"
+"|             Head over to http://$hostname_new.local/owncloud             |"
+"|                        To finish your setup!                        |"
+"|                                                                     |"
+"| Username:       Pick your Poison                                    |"
+"| Password:       Something that is not password123                   |"
+"| Data folder:    /media/ownclouddrive/                               |"
+"|                                                                     |"
+"|            This installer was brought to you by AllGray!            |"
+"+---------------------------------------------------------------------+"
+
+EOL
+
 # Clear screen
 reset
 
