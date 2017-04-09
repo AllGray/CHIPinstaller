@@ -6,22 +6,25 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+# Grab hostname
+read -r hostname_old < /etc/hostname
+
 # Clear the screen
 reset
 
-# Start info
+# Start info (banner spacing fits, assumong hostname: chip)
 echo "+-----------------------------------------------------------+"
 echo "|                   CHOOSE A NEW HOSTNAME                   |"
-echo "| If you want to keep chip as your hostname just type chip  |"
+echo "| If you want to keep $hostname_old as your hostname just type $hostname_old  |"
 echo "|  Be avare that using chip as hostname can cause problems  |"
-echo "|   if you have more than 1 chip connected to you network   |"
+echo "|   if you have more than 1 CHIP connected to you network   |"
 echo "+-----------------------------------------------------------+"
 
 # Choose a new host name
 read -p "Choose your new host name: " hostname_new
 
 # Setup hostname
-read -r hostname_old < /etc/hostname
+
 sed -i "s/$hostname_old/$hostname_new/g" /etc/hostname
 sed -i "s/$hostname_old/$hostname_new/g" /etc/hosts
 
@@ -116,6 +119,30 @@ cat guacamole-auth-jdbc-${VERSION}-incubating/mysql/schema/*.sql | mysql -u root
 rm -rf guacamole-*
 rm -rf mysql-connector-java-5.1.41*
 
+# Create Readme.txt in /user/chip
+cat >/user/chip/guacamole_README.txt <<EOL
+"+---------------------------------------------------------------------+"
+"|                           Congratulation!                           |"
+"|                        Your install is done!                        |"
+"|                   Your HOSTNAME is $hostname_new                    |"
+"|            If you don't have Bonjour/Netatalk installed,            |"
+"|             Head over to http://your.local.ip/guacamole             |"
+"|                                                                     |"
+"|              if you DO have Bonjour/Netatalk installed              |"
+"|          Head over to http://$hostname_new.local/guacamole          |"
+"|                        To finish your setup!                        |"
+"|                                                                     |"
+"| Username:     guacadmin                                             |"
+"| Password:     guacadmin                                             |"
+"|                                                                     |"
+"|    After you log in for the first time, create a new admin user!    |"
+"|       Log in as your new admin user and remove guacadmin user       |"
+"|            This installer was brought to you by AllGray!            |"
+"|               And the rest of the CHIPinstaller team                |"
+"+---------------------------------------------------------------------+"
+EOL
+
+
 # Clear screen
 reset
 
@@ -137,4 +164,5 @@ echo "|                                                                     |"
 echo "|    After you log in for the first time, create a new admin user!    |"
 echo "|       Log in as your new admin user and remove guacadmin user       |"
 echo "|            This installer was brought to you by AllGray!            |"
+echo "|               And the rest of the CHIPinstaller team                |"
 echo "+---------------------------------------------------------------------+"
