@@ -24,6 +24,7 @@ echo "+-----------------------------------------------------------+"
 vncserver 
 
 # Create Configuration
+read -r hostname < /etc/hostname
 cat >/etc/systemd/system/tightvncserver.service <<EOL
 [Unit]
 Description=TightVNC remote desktop server
@@ -32,21 +33,21 @@ After=sshd.service
 [Service]
 Type=dbus
 ExecStart=/usr/bin/tightvncserver :1
-User=
+User=$hostname
 Type=forking
 
 WantedBy=multi-user.target
 
 EOL
 
-# Finish config
-read -r hostname < /etc/hostname
-sed "s/User=/User=$hostname/g" /etc/systemd/system/tightvncserver.service
-
 # Give out some permissions
 sudo chown root:root /etc/systemd/system/tightvncserver.service
 sudo chmod 755 /etc/systemd/system/tightvncserver.service
 sudo systemctl enable tightvncserver.service
+
+# Grab Local IP address
+hostname -I > local_ip.txt
+read -r local_ip < local_ip.txt
 
 # Clear screen
 reset
@@ -56,7 +57,7 @@ echo "+------------------------------------------------------+"
 echo "|                   Congratulation!!                   |"
 echo "|                 Your install is done                 |"
 echo "|  You can access the VNC server from most VNCviewers  |"
-echo "|         Just go to server.local.ip.address:1         |"
+echo "|              Just go to $local_ip:1              |"
 echo "|             in your prefered VNC viewers             |"
 echo "|                                                      |"
 echo "|                                                      |"
