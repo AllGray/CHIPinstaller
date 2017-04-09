@@ -2,7 +2,7 @@
 
 # Check if user is root
 if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
+  then echo "Please run this installer with sudo"
   exit
 fi
 
@@ -41,7 +41,7 @@ apt-get -y install ntfs-3g owncloud mysql-server-
 # If Apt-Get fails to run completely the rest of this isn't going to work...
 if [ $? -ne 0 ]
 then
-    echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade"
+    echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade before you run this installer"
     exit
 fi
 
