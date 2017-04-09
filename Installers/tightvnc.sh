@@ -52,6 +52,23 @@ read -r local_ip < local_ip.txt
 # Clear screen
 reset
 
+# Create Readme.txt in /user/chip
+cat >/user/chip/tightVNC_README.txt <<EOL
+"+------------------------------------------------------+"
+"|                   Congratulation!!                   |"
+"|                 Your install is done                 |"
+"|  You can access the VNC server from most VNCviewers  |"
+"|              Just go to $local_ip:1              |"
+"|             in your prefered VNC viewers             |"
+"|                                                      |"
+"|                                                      |"
+"|    This installer was brought to you by AllGray!!    |"
+"|              And the CHIPinstaller team              |"
+"+------------------------------------------------------+"
+
+EOL
+
+
 # Finishing up
 echo "+------------------------------------------------------+"
 echo "|                   Congratulation!!                   |"
@@ -61,7 +78,6 @@ echo "|              Just go to $local_ip:1              |"
 echo "|             in your prefered VNC viewers             |"
 echo "|                                                      |"
 echo "|                                                      |"
-echo "|                                                      |"
-echo "|                                                      |"
 echo "|    This installer was brought to you by AllGray!!    |"
+echo "|              And the CHIPinstaller team              |"
 echo "+------------------------------------------------------+"
