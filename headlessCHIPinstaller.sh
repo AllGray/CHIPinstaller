@@ -15,26 +15,23 @@ if hash vim 2>/dev/null; then
 else
   P3="VIM"
 fi
-if hash tightvncserver 2>/dev/null; then
-  P4="Already installed (TightVNC)"
+if hash lynx 2>/dev/null; then
+  P4="Already installed (lynx)"
 else
-  P4="TightVNC"
-fi
-if hash surf 2>/dev/null; then
-  P5="Already installed (surf)"
-else
-  P5="surf"
+  P4="lynx"
 fi
 if hash tmux 2>/dev/null; then
-  P6="Already installed (tmux)"
+  P5="Already installed (tmux)"
 else
-  P6="tmux"
+  P5="tmux"
 fi
 if hash git 2>/dev/null; then
-  P7="Already installed (git)"
+  P6="Already installed (git)"
 else
-  P7="git"
+  P6="git"
 fi
+
+whiptail --msgbox "CHIPinstaller ready, select with spacebar" 8 78
 
 whiptail --title "CHIPinstaller" --checklist --separate-output "Choose:" 20 78 15 \
 "$P1" "" off \
@@ -42,25 +39,22 @@ whiptail --title "CHIPinstaller" --checklist --separate-output "Choose:" 20 78 1
 "$P3" "" off \
 "$P4" "" off \
 "$P5" "" off \
-"$P6" "" off \
-"$P7" "" off 2>results
+"$P6" "" off 2>results
 
 while read choice
   do
     case $choice in		
-      $P1) Installers/guacamole.sh
+      $P1) sudo Installers/guacamole.sh
       ;;
-      $P2) Installers/owncloud.sh
+      $P2) sudo Installers/owncloud.sh
       ;;
-      $P3) Installers/vim.sh
+      $P3) sudo Installers/vim.sh
       ;;
-      $P4) Installers/tightvnc.sh
+      $P4) sudo Installers/lynx.sh
       ;;
-      $P5) Installers/surf.sh
+      $P5) sudo Installers/tmux.sh
       ;;
-      $P6) Installers/tmux.sh
-      ;;
-      $P7) Installers/git.sh
+      $P6) sudo Installers/git.sh
     esac
   echo "Closing CHIPinstaller, see you soon!"
 done < results
