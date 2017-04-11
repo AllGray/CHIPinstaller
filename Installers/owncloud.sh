@@ -92,7 +92,7 @@ rm -r Release.key owncloud-chip-installer.sh local_ip.txt
 systemctl restart apache2
 
 # Create readme.txt in /user/chip/
-cat >/user/chip/owncloud_README.txt <<EOL
+cat >/usr/chip/owncloud_README.txt <<EOL
 "+---------------------------------------------------------------------+"
 "|                           Congratulation!                           |"
 "|                        Your install is done!                        |"
