@@ -124,7 +124,7 @@ rm -rf guacamole-*
 rm -rf mysql-connector-java-5.1.41*
 
 # Create Readme.txt in /user/chip
-cat >/usr/chip/guacamole_README.txt <<EOL
+cat >/home/chip/guacamole_README.txt <<EOL
 "+---------------------------------------------------------------------+"
 "|                           Congratulation!                           |"
 "|                        Your install is done!                        |"
