@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Check if user is root
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
 if test -f /etc/guacamole/guacamole.properties; then
   P1="Already installed (Guacamole)"
 else
