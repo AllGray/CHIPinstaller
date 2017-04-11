@@ -115,6 +115,10 @@ echo $SQLCODE | mysql -u root -p$mysqlrootpassword
 # Add Guacamole Schema to newly created database
 cat guacamole-auth-jdbc-${VERSION}-incubating/mysql/schema/*.sql | mysql -u root -p$mysqlrootpassword guacamole_db
 
+# Grab Local IP address
+hostname -I > local_ip.txt
+read -r local_ip < local_ip.txt
+
 # Cleanup
 rm -rf guacamole-*
 rm -rf mysql-connector-java-5.1.41*
@@ -126,7 +130,7 @@ cat >/user/chip/guacamole_README.txt <<EOL
 "|                        Your install is done!                        |"
 "|                   Your HOSTNAME is $hostname_new                    |"
 "|            If you don't have Bonjour/Netatalk installed,            |"
-"|             Head over to http://your.local.ip/guacamole             |"
+"|             Head over to http://$local_ip/guacamole             |"
 "|                                                                     |"
 "|              if you DO have Bonjour/Netatalk installed              |"
 "|          Head over to http://$hostname_new.local/guacamole          |"
@@ -152,7 +156,7 @@ echo "|                           Congratulation!                           |"
 echo "|                        Your install is done!                        |"
 echo "|                   Your HOSTNAME is $hostname_new                    |"
 echo "|            If you don't have Bonjour/Netatalk installed,            |"
-echo "|             Head over to http://your.local.ip/guacamole             |"
+echo "|             Head over to http://$local_ip/guacamole             |"
 echo "|                                                                     |"
 echo "|              if you DO have Bonjour/Netatalk installed              |"
 echo "|          Head over to http://$hostname_new.local/guacamole          |"
