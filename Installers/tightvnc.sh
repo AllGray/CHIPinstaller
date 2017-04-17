@@ -52,8 +52,8 @@ read -r local_ip < local_ip.txt
 # Clear screen
 reset
 
-# Create Readme.txt in /user/chip
-cat >/user/chip/tightVNC_README.txt <<EOL
+# Create Readme.txt in /home/chip
+cat >/home/chip/tightVNC_README.txt <<EOL
 "+------------------------------------------------------+"
 "|                   Congratulation!!                   |"
 "|                 Your install is done                 |"
