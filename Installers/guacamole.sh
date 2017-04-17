@@ -125,7 +125,7 @@ read -r local_ip < local_ip.txt
 # Cleanup
 rm -rf guacamole-*
 rm -rf mysql-connector-java-5.1.41*
-rm -rf temp
+rm -rf /home/chip/temp
 
 # Create Readme.txt in /home/chip
 cat >/home/chip/guacamole_README.txt <<EOL
