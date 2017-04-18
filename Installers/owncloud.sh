@@ -7,7 +7,7 @@ if [ "$EUID" -ne 0 ]
 fi
 
 # Install dialog depend
-apt-get -y install dialog
+apt-get -y update && apt-get -y install dialog
 
 # Clear the screen
 reset

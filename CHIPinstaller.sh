@@ -6,9 +6,6 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-cd ~/CHIPinstaller
-
-#sudo rm -R -f log.txt
 echo "Welcome to CHIPinstaller" | sudo tee log.txt
 
 sudo chmod 777 log.txt
