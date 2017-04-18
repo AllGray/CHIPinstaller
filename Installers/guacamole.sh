@@ -13,7 +13,7 @@ read -r hostname_old < /etc/hostname
 reset
 
 # Install dialog depend
-apt-get -y install dialog
+apt-get -y update && apt-get -y install dialog
 
 # Make temp dir
 mkdir /home/chip/temp
