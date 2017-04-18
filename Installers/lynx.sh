@@ -10,4 +10,4 @@ fi
 reset
 
 # Install lynx
-apt-get -y update && apt-get -y lynx
+apt-get -y update && apt-get -y install lynx

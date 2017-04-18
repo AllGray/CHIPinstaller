@@ -12,29 +12,32 @@ read -r hostname_old < /etc/hostname
 # Clear the screen
 reset
 
-# Start info (banner spacing fits, assumong hostname: chip)
-echo "+-----------------------------------------------------------+"
-echo "|                   CHOOSE A NEW HOSTNAME                   |"
-echo "| If you want to keep $hostname_old as your hostname just type $hostname_old  |"
-echo "|  Be avare that using chip as hostname can cause problems  |"
-echo "|   if you have more than 1 CHIP connected to you network   |"
-echo "+-----------------------------------------------------------+"
+# Install dialog depend
+apt-get -y install dialog
 
-# Choose a new host name
-read -p "Choose your new host name: " hostname_new
+# Make temp dir
+mkdir /home/chip/temp
 
-# Setup hostname
+# Display the dialog box
+dialog --inputbox "Choose your new HOSTNAME:" 8 40 2>/home/chip/temp/hostname_new
 
+# Setup Hostname
+read -r hostname_new < /home/chip/temp/hostname_new
+read -r hostname_old < /etc/hostname
 sed -i "s/$hostname_old/$hostname_new/g" /etc/hostname
 sed -i "s/$hostname_old/$hostname_new/g" /etc/hosts
 
-# Grab a password for MySQL Root
-read -s -p "Enter the password that will be used for MySQL Root: " mysqlrootpassword
+# Setup MySQL
+dialog --inputbox "Enter the password that will be used for MySQL Root:" 8 40 2>/home/chip/temp/mysqlrootpassword
+read -r mysqlrootpassword < /home/chip/temp/mysqlrootpassword
+
+# setup for MySQL Root
 debconf-set-selections <<< "mysql-server mysql-server/root_password password $mysqlrootpassword"
 debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $mysqlrootpassword"
 
 # Grab a password for Guacamole Database User Account
-read -s -p "Enter the password that will be used for the Guacamole database: " guacdbuserpassword
+dialog --inputbox "Enter the password that will be used for Guacamole Database:" 8 40 2>/home/chip/temp/guacdbuserpassword
+read -r guacdbuserpassword < /home/chip/temp/guacdbuserpassword
 
 # Install Features
 apt-get update
@@ -115,21 +118,26 @@ echo $SQLCODE | mysql -u root -p$mysqlrootpassword
 # Add Guacamole Schema to newly created database
 cat guacamole-auth-jdbc-${VERSION}-incubating/mysql/schema/*.sql | mysql -u root -p$mysqlrootpassword guacamole_db
 
+# Grab Local IP address
+hostname -I > local_ip.txt
+read -r local_ip < local_ip.txt
+
 # Cleanup
 rm -rf guacamole-*
 rm -rf mysql-connector-java-5.1.41*
+rm -rf /home/chip/temp
 
-# Create Readme.txt in /user/chip
-cat >/user/chip/guacamole_README.txt <<EOL
+# Create Readme.txt in /home/chip
+cat >/home/chip/guacamole_README.txt <<EOL
 "+---------------------------------------------------------------------+"
 "|                           Congratulation!                           |"
 "|                        Your install is done!                        |"
 "|                   Your HOSTNAME is $hostname_new                    |"
 "|            If you don't have Bonjour/Netatalk installed,            |"
-"|             Head over to http://your.local.ip/guacamole             |"
+"|           Head over to http://$local_ip:8080/guacamole           |"
 "|                                                                     |"
 "|              if you DO have Bonjour/Netatalk installed              |"
-"|          Head over to http://$hostname_new.local/guacamole          |"
+"|        Head over to http://$hostname_new.local:8080/guacamole        |"
 "|                        To finish your setup!                        |"
 "|                                                                     |"
 "| Username:     guacadmin                                             |"
@@ -152,10 +160,10 @@ echo "|                           Congratulation!                           |"
 echo "|                        Your install is done!                        |"
 echo "|                   Your HOSTNAME is $hostname_new                    |"
 echo "|            If you don't have Bonjour/Netatalk installed,            |"
-echo "|             Head over to http://your.local.ip/guacamole             |"
+echo "|           Head over to http://$local_ip:8080/guacamole           |"
 echo "|                                                                     |"
 echo "|              if you DO have Bonjour/Netatalk installed              |"
-echo "|          Head over to http://$hostname_new.local/guacamole          |"
+echo "|        Head over to http://$hostname_new.local:8080/guacamole        |"
 echo "|                        To finish your setup!                        |"
 echo "|                                                                     |"
 echo "| Username:     guacadmin                                             |"

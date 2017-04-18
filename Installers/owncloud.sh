@@ -6,27 +6,27 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+# Install dialog depend
+apt-get -y install dialog
+
 # Clear the screen
 reset
 
-# Grab the current hostname
+# Make temp dir
+mkdir /home/chip/temp
+
+# Display the dialog box
+dialog --inputbox "Choose your new HOSTNAME:" 8 40 2>/home/chip/temp/hostname_new
+
+# Setup Hostname
+read -r hostname_new < /home/chip/temp/hostname_new
 read -r hostname_old < /etc/hostname
-
-# Start info (banner spacing works assuming hostname: chip)
-echo "+-----------------------------------------------------------+"
-echo "|                   CHOOSE A NEW HOSTNAME                   |"
-echo "|                   Your Hostname is $hostname_old                   |"
-echo "| If you want to keep $hostname_old as  your hostname just type $hostname_old |"
-echo "|  Be avare that using chip as hostname can cause problems  |"
-echo "|   if you have more than 1 CHIP connected to you network   |"
-echo "+-----------------------------------------------------------+"
-
-# Choose a new host name
-read -p "Choose your new host name: " hostname_new
+sed -i "s/$hostname_old/$hostname_new/g" /etc/hostname
+sed -i "s/$hostname_old/$hostname_new/g" /etc/hosts
 
 # Setup OwnCloud Files
-wget -nv https://download.owncloud.org/download/repositories/stable/Debian_8.0/Release.key -O Release.key
-apt-key add - < Release.key
+wget -nv https://download.owncloud.org/download/repositories/stable/Debian_8.0/Release.key -O /home/chip/temp/Release.key
+apt-key add - < /home/chip/temp/Release.key
 
 # Add the OwnCloud repository
 sh -c "echo 'deb http://download.owncloud.org/download/repositories/stable/Debian_8.0/ /' > /etc/apt/sources.list.d/owncloud.list"
@@ -62,12 +62,6 @@ echo "<port>548</port>" >> /etc/avahi/services/afpd.service
 echo "</service>" >> /etc/avahi/services/afpd.service
 echo "</service-group>" >> /etc/avahi/services/afpd.service
 
-# Setup host name
-read -r hostname_old < /etc/hostname
-sed -i "s/$hostname_old/$hostname_new/g" /etc/hostname
-sed -i "s/$hostname_old/$hostname_new/g" /etc/hosts
-hostname $hostname_new
-
 # Restart AVAHI
 sudo /etc/init.d/avahi-daemon restart
 
@@ -82,17 +76,17 @@ chmod -R 775 /media/ownclouddrive
 chown -R www-data:www-data /media/ownclouddrive
 
 # Grab Local IP address
-hostname -I > local_ip.txt
-read -r local_ip < local_ip.txt
+hostname -I > /home/chip/temp/local_ip.txt
+read -r local_ip < /home/chip/temp/local_ip.txt
 
 # cleanup
-rm -r Release.key owncloud-chip-installer.sh local_ip.txt
+rm -r /home/chip/temp
 
 # Restart Apache
 systemctl restart apache2
 
-# Create readme.txt in /user/chip/
-cat >/user/chip/owncloud_README.txt <<EOL
+# Create readme.txt in /home/chip/
+cat >/home/chip/owncloud_README.txt <<EOL
 "+---------------------------------------------------------------------+"
 "|                           Congratulation!                           |"
 "|                        Your install is done!                        |"
