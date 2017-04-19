@@ -8,10 +8,7 @@ https://sourceforge.net/projects/yad-dialog/
 		
 Zenity is used for of the launchers interface: 		
 https://wiki.gnome.org/Projects/Zenity 		
- 		
-Pocket Home (by @o-marshmallow) is highly recommended for a great experience: 		
-https://github.com/o-marshmallow/PocketCHIP-pocket-home 		
-		
+ 				
 CHIPInstaller has been created by Damian Vila (@damianvila), Iker Garcia (@IkerGarcia) and Mathias Thur (@AllGray). 		
  		
 **Motivation** 		
