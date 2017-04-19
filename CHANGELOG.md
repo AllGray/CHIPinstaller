@@ -1,6 +1,6 @@
 **v1.0**
 
-First version includes: 
+GUI version includes: 
 
   - Guacamole
   - OwnCloud
@@ -10,3 +10,11 @@ First version includes:
   - tmux
   - git
   
+Headless version includes:
+
+  - Guacamole
+  - Owncloud
+  - VIM
+  - lynx
+  - tmux
+  - git
