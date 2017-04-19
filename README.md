@@ -9,7 +9,7 @@ This project creates a GUI to install different tools for [Next Thing Co's](http
  				
 [Zenity](https://wiki.gnome.org/Projects/Zenity) is used for of the launchers interface: 			
  				
-CHIPInstaller has been created by [Damian Vila](https://github.com/damianvila) - [Iker Garcia](https://github.com/IkerGarcia) - [Robert Wolterman](https://github.com/xtacocorex) and [Mathias Thur](github.com/AllGray). 		
+CHIPInstaller has been created by [Damian Vila](https://github.com/damianvila) , [Iker Garcia](https://github.com/IkerGarcia) , [Robert Wolterman](https://github.com/xtacocorex) and [Mathias Thur](github.com/AllGray). 		
  		
 **Motivation** 		
 		
