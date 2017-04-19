@@ -6,10 +6,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-echo "Welcome to CHIPinstaller" | sudo tee log.txt
-
-sudo chmod 777 log.txt
-exec &> >(tee -a log.txt)
+echo "Welcome to CHIPinstaller"
 
 if hash zenity 2>/dev/null; then
   :
