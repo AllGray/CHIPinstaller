@@ -50,17 +50,17 @@ whiptail --title "CHIPinstaller" --checklist --separate-output "Choose:" 20 78 1
 while read choice
   do
     case $choice in		
-      $P1) sudo Installers/guacamole.sh
+      $P1) HL_Installers/guacamole.sh
       ;;
-      $P2) sudo Installers/owncloud.sh
+      $P2) HL_Installers/owncloud.sh
       ;;
-      $P3) sudo Installers/vim.sh
+      $P3) HL_Installers/vim.sh
       ;;
-      $P4) sudo Installers/lynx.sh
+      $P4) HL_Installers/lynx.sh
       ;;
-      $P5) sudo Installers/tmux.sh
+      $P5) HL_Installers/tmux.sh
       ;;
-      $P6) sudo Installers/git.sh
+      $P6) HL_Installers/git.sh
     esac
   echo "Closing CHIPinstaller, see you soon!"
 done < results
