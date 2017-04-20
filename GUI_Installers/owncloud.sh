@@ -6,8 +6,16 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-# Install dialog depend
-apt-get -y update && apt-get -y install zenity
+# Install depend
+apt-get -y update 
+apt-get -y install zenity ntfs-3g
+
+# Check if apt-get update/install worked.
+if [ $? -ne 0 ]
+then
+    echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade before you run this installer"
+    exit
+fi
 
 # Clear the screen
 reset
@@ -15,10 +23,14 @@ reset
 # Make temp dir
 mkdir /home/chip/temp
 
+# Change hostname option
 hostname_new=$(zenity --entry --title="hostname:" --text="Choose a new hostname:")
 read -r hostname_old < /etc/hostname
 sed -i "s/$hostname_old/$hostname_new/g" /etc/hostname
 sed -i "s/$hostname_old/$hostname_new/g" /etc/hosts
+
+# Clear screen
+reset
 
 # Setup OwnCloud Files
 wget -nv https://download.owncloud.org/download/repositories/stable/Debian_8.0/Release.key -O /home/chip/temp/Release.key
@@ -28,13 +40,10 @@ apt-key add - < /home/chip/temp/Release.key
 sh -c "echo 'deb http://download.owncloud.org/download/repositories/stable/Debian_8.0/ /' > /etc/apt/sources.list.d/owncloud.list"
 apt-get update
 
-# Install Locals
-apt-get -y install locales && dpkg-reconfigure locales && locale-gen
-
 # Install Features
-apt-get -y install ntfs-3g owncloud mysql-server-
+apt-get -y install owncloud mysql-server-
 
-# If Apt-Get fails to run completely the rest of this isn't going to work...
+# Check if apt-get update/install worked.
 if [ $? -ne 0 ]
 then
     echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade before you run this installer"
