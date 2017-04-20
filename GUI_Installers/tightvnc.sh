@@ -7,7 +7,15 @@ if [ "$EUID" -ne 0 ]
 fi
 
 # Install VNC server
-apt-get -y update && apt-get -y install tightvncserver
+apt-get -y update 
+apt-get -y install tightvncserver
+
+# Check if apt-get update/install worked.
+if [ $? != 0 ]
+then
+    echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade"
+    exit
+fi
 
 # Clear screen
 reset
@@ -45,6 +53,9 @@ sudo systemctl enable tightvncserver.service
 # Grab Local IP address
 hostname -I > local_ip.txt
 read -r local_ip < local_ip.txt
+
+# Clean up
+rm -rf local_ip.txt
 
 # Clear screen
 reset
