@@ -10,10 +10,18 @@ fi
 reset
 
 # Install zenity depend
-apt-get -y update && apt-get -y install zenity
+apt-get -y update
+apt-get -y zenity install build-essential libcairo2-dev libjpeg62-turbo-dev libpng12-dev libossp-uuid-dev libavcodec-dev libavutil-dev \
+libswscale-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev \
+libvorbis-dev libwebp-dev mysql-server mysql-client mysql-common mysql-utilities tomcat8 freerdp ghostscript jq
 
-# Make temp dir
-mkdir /home/chip/temp
+
+# Check if apt-get update/install worked.
+if [ $? != 0 ]
+then
+    echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade"
+    exit
+fi
 
 # Setup Hostname
 hostname_new=$(zenity --entry --title="hostname:" --text="Choose a new hostname:")
@@ -38,21 +46,10 @@ guacdbuserpassword=$(zenity --password --title="MySQL Setup" --text="Enter the p
 # Clear Screen 
 reset
 
-# Install Features
-apt-get update
-apt-get -y install build-essential libcairo2-dev libjpeg62-turbo-dev libpng12-dev libossp-uuid-dev libavcodec-dev libavutil-dev \
-libswscale-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev \
-libvorbis-dev libwebp-dev mysql-server mysql-client mysql-common mysql-utilities tomcat8 freerdp ghostscript jq
-
+# Apache Stuff.
 VERSION="0.9.11"
 SERVER=$(curl -s 'https://www.apache.org/dyn/closer.cgi?as_json=1' | jq --raw-output '.preferred|rtrimstr("/")')
 
-# If Apt-Get fails to run completely the rest of this isn't going to work...
-if [ $? != 0 ]
-then
-    echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade"
-    exit
-fi
 
 # Add GUACAMOLE_HOME to Tomcat8 ENV
 echo "" >> /etc/default/tomcat8
@@ -148,7 +145,6 @@ cat >/home/chip/guacamole_README.txt <<EOL
 "|               And the rest of the CHIPinstaller team                |"
 "+---------------------------------------------------------------------+"
 EOL
-
 
 # Clear screen
 reset
