@@ -7,7 +7,6 @@ if [ "$EUID" -ne 0 ]
 fi
 
 # Install VNC server
-apt-get -y update 
 apt-get -y install tightvncserver
 
 # Check if apt-get update/install worked.
