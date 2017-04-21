@@ -7,7 +7,7 @@ if [ "$EUID" -ne 0 ]
 fi
 
 # Install VNC server
-apt-get -y update && apt-get -y install tightvncserver
+apt-get -y install tightvncserver
 
 # Clear screen
 reset
