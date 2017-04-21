@@ -10,4 +10,4 @@ fi
 reset
 
 # Install VIM
-apt-get -y update && apt-get -y install vim
+apt-get -y install vim
