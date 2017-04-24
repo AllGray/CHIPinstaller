@@ -1,12 +1,10 @@
 #!/bin/bash
 
-# Check if apt-get update/install worked.
-if [ $? -ne 0 ]
-then
-    echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade before you run this installer"
-    exit
+# Check if user is root
+if [ "$EUID" -ne 0 ]
+  then echo "Please run this installer with sudo"
+  exit
 fi
-
 
 # Clear the screen
 reset
@@ -18,9 +16,9 @@ libvorbis-dev libwebp-dev mysql-server mysql-client mysql-common mysql-utilities
 
 
 # Check if apt-get update/install worked.
-if [ $? != 0 ]
+if [ $? -ne 0 ]
 then
-    echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade"
+    echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade before you run this installer"
     exit
 fi
 
