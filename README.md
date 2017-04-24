@@ -5,6 +5,7 @@
 This project creates a GUI to install different tools for [Next Thing Co's](https://github.com/NextThingCo/) C.H.I.P.		
 		
 ![Image](https://github.com/AllGray/CHIPinstaller/blob/master/logo.png) 
+
 [YAD](https://sourceforge.net/projects/yad-dialog/) is used for the interface:		
  				
 [Zenity](https://wiki.gnome.org/Projects/Zenity) is used for of the launchers interface: 			
