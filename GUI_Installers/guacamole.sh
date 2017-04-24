@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# Check if user is root
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-  exit
+# Check if apt-get update/install worked.
+if [ $? -ne 0 ]
+then
+    echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade before you run this installer"
+    exit
 fi
+
 
 # Clear the screen
 reset
