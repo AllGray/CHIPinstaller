@@ -10,4 +10,4 @@ fi
 reset
 
 # Install tmux
-apt-get -y update && apt-get -y install tmux
+apt-get -y install tmux

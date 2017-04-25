@@ -10,4 +10,4 @@ fi
 reset
 
 # Install surf
-apt-get -y update && apt-get -y surf
+apt-get -y surf

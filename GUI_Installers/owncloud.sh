@@ -7,7 +7,6 @@ if [ "$EUID" -ne 0 ]
 fi
 
 # Install depend
-apt-get -y update 
 apt-get -y install zenity ntfs-3g
 
 # Check if apt-get update/install worked.

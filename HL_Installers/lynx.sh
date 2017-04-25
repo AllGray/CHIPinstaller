@@ -9,5 +9,5 @@ fi
 # Clear the screen
 reset
 
-# Install VIM
-apt-get -y update && apt-get -y install vim
+# Install lynx
+apt-get -y install lynx

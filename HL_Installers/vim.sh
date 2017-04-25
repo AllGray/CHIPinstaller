@@ -9,5 +9,5 @@ fi
 # Clear the screen
 reset
 
-# Install surf
-apt-get -y update && apt-get -y surf
+# Install VIM
+apt-get -y install vim

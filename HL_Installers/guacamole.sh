@@ -13,7 +13,7 @@ read -r hostname_old < /etc/hostname
 reset
 
 # Install dialog depend
-apt-get -y update && apt-get -y install dialog
+apt-get -y install dialog
 
 # Make temp dir
 mkdir /home/chip/temp
@@ -40,7 +40,6 @@ dialog --inputbox "Enter the password that will be used for Guacamole Database:"
 read -r guacdbuserpassword < /home/chip/temp/guacdbuserpassword
 
 # Install Features
-apt-get update
 apt-get -y install build-essential libcairo2-dev libjpeg62-turbo-dev libpng12-dev libossp-uuid-dev libavcodec-dev libavutil-dev \
 libswscale-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev \
 libvorbis-dev libwebp-dev mysql-server mysql-client mysql-common mysql-utilities tomcat8 freerdp ghostscript jq

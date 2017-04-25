@@ -10,4 +10,4 @@ fi
 reset
 
 # Install GIT
-apt-get -y update && apt-get -y install git
+apt-get -y install git

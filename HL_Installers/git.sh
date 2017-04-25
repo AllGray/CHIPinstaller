@@ -9,5 +9,5 @@ fi
 # Clear the screen
 reset
 
-# Install lynx
-apt-get -y update && apt-get -y install lynx
+# Install GIT
+apt-get -y install git

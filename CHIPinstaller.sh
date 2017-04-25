@@ -6,18 +6,19 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+# Update the repos
+apt-get -y update
+
 echo "Welcome to CHIPinstaller"
 
 if hash zenity 2>/dev/null; then
   :
 else
-  apt-get -y update
   apt-get install -y zenity
 fi
 if hash jq 2>/dev/null; then
   :
 else
- apt-get -y update 
  apt-get install -y jq
 fi
 if hash yad 2>/dev/null; then

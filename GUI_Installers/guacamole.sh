@@ -6,22 +6,16 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+
+
 # Clear the screen
 reset
 
 # Install zenity depend
-apt-get -y update
-apt-get -y zenity install build-essential libcairo2-dev libjpeg62-turbo-dev libpng12-dev libossp-uuid-dev libavcodec-dev libavutil-dev \
-libswscale-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev \
-libvorbis-dev libwebp-dev mysql-server mysql-client mysql-common mysql-utilities tomcat8 freerdp ghostscript jq
+apt-get -y update && apt-get -y install zenity
 
-
-# Check if apt-get update/install worked.
-if [ $? != 0 ]
-then
-    echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade"
-    exit
-fi
+# Make temp dir
+mkdir /home/chip/temp
 
 # Setup Hostname
 hostname_new=$(zenity --entry --title="hostname:" --text="Choose a new hostname:")
@@ -29,27 +23,30 @@ read -r hostname_old < /etc/hostname
 sed -i "s/$hostname_old/$hostname_new/g" /etc/hostname
 sed -i "s/$hostname_old/$hostname_new/g" /etc/hosts
 
-# Clear Screen
-reset
+mysqlrootpassword=$(zenity --password --title="MySQL Setup" --text="Choose a MySQL Password:")
 
 # setup for MySQL Root
-mysqlrootpassword=$(zenity --password --title="MySQL Setup" --text="Choose a MySQL Password:")
 debconf-set-selections <<< "mysql-server mysql-server/root_password password $mysqlrootpassword"
 debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $mysqlrootpassword"
-
-# Clear Screen
-reset
 
 # Grab a password for Guacamole Database User Account
 guacdbuserpassword=$(zenity --password --title="MySQL Setup" --text="Enter the password that will be used for Guacamole Database:")
 
-# Clear Screen 
-reset
+# Install Features
+apt-get update
+apt-get -y install build-essential libcairo2-dev libjpeg62-turbo-dev libpng12-dev libossp-uuid-dev libavcodec-dev libavutil-dev \
+libswscale-dev libfreerdp-dev libpango1.0-dev libssh2-1-dev libtelnet-dev libvncserver-dev libpulse-dev libssl-dev \
+libvorbis-dev libwebp-dev mysql-server mysql-client mysql-common mysql-utilities tomcat8 freerdp ghostscript jq
 
-# Apache Stuff.
 VERSION="0.9.11"
 SERVER=$(curl -s 'https://www.apache.org/dyn/closer.cgi?as_json=1' | jq --raw-output '.preferred|rtrimstr("/")')
 
+# If Apt-Get fails to run completely the rest of this isn't going to work...
+if [ $? != 0 ]
+then
+    echo "Make sure to run: sudo apt-get update && sudo apt-get upgrade"
+    exit
+fi
 
 # Add GUACAMOLE_HOME to Tomcat8 ENV
 echo "" >> /etc/default/tomcat8
@@ -121,7 +118,7 @@ read -r local_ip < local_ip.txt
 # Cleanup
 rm -rf guacamole-*
 rm -rf mysql-connector-java-5.1.41*
-rm -rf local_ip.txt
+rm -rf /home/chip/temp
 
 # Create Readme.txt in /home/chip
 cat >/home/chip/guacamole_README.txt <<EOL
@@ -145,6 +142,7 @@ cat >/home/chip/guacamole_README.txt <<EOL
 "|               And the rest of the CHIPinstaller team                |"
 "+---------------------------------------------------------------------+"
 EOL
+
 
 # Clear screen
 reset
