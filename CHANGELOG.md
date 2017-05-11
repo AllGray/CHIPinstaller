@@ -1,4 +1,5 @@
 **v1.0**
+
 Beta fixes for the installer
 
 **v1.0**
