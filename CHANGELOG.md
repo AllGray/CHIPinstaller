@@ -1,6 +1,6 @@
 **v1.1**
 
-Beta fixes for the installer
+Bug fixes for the installer, and overall improvements 
 
 **v1.0**
 
