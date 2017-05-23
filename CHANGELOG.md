@@ -22,3 +22,11 @@ Headless version includes:
   - lynx
   - tmux
   - git
+
+**v1.1**
+
+Minor bug fixes.
+
+**v2.0**
+
+CHIPinstaller now looks for updates and updates itself if needed.

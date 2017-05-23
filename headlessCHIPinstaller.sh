@@ -6,6 +6,12 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+echo "Looking for updates"
+wget -O /tmp/package.txt 'http://chipinstaller.damianvila.com/package.txt'
+cat /tmp/package.txt | head -1 > /tmp/version
+cat /tmp/package.txt | tail -1 > /tmp/link
+(diff /tmp/version /home/chip/.CHIPinstaller/.version && echo 'Already up-to-date.') || exec ./headlessupdate.sh
+
 if test -f /etc/guacamole/guacamole.properties; then
   P1="Already installed (Guacamole)"
 else
